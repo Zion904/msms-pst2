@@ -67,6 +67,8 @@ def update_teacher(teacher_id, **fields):
             return
     print(f"Error: Teacher with ID {teacher_id} not found.")
 
+
+
 def remove_student(student_id):
     """
     Removes a student from the data store.
@@ -96,6 +98,20 @@ def remove_teacher(teacher_id):
             print(f"teacher {teacher['id']} has been removed.")
             return
     print(f"teacher {teacher_id} hasn't been found.")
+
+def add_student(name, enrolled_in=None):
+    """
+    Adds a new student dictionary to the app_data['students'] list.
+        Returns:
+        None
+    """
+    if enrolled_in is None:
+        enrolled_in = []
+    student_id = app_data['next_student_id']
+    new_student = {"id": student_id, "name": name, "enrolled_in": enrolled_in}
+    app_data['students'].append(new_student)
+    app_data['next_student_id'] += 1
+    print(f"Core: Student '{name}' added.")
 
 def update_student(student_id, **fields):
     """
@@ -167,37 +183,73 @@ def main():
 
     while True:
         print("\n===== MSMS v2 (Persistent) =====")
-        print("1. Check-in Student")
-        print("2. Print Student Card")
-        print("3. Update Teacher Info")
-        print("4. Remove Student")
+        print("1. Add Student")
+        print("2. Add Teacher")
+        print("3. Update Student Info")
+        print("4. Update Teacher Info")
+        print("5. Remove Student")
+        print("6. Remove Teacher")
+        print("7. Check-in Student")
+        print("8. Print Student Card")
         print("q. Quit and Save")
         
         choice = input("Enter your choice: ")
         
         made_change = False # A flag to track if we need to save
+        
         if choice == '1':
-            student_id = int(input("Enter Student ID: "))
-            course_id = input("Enter Course ID: ")
-            check_in(student_id, course_id)            
+            name = input("Enter Student Name: ")
+            courses = input("Enter enrolled courses (comma separated, leave blank if none): ")
+            enrolled_list = [c.strip() for c in courses.split(",")] if courses else []
+            add_student(name, enrolled_list)
             made_change = True
+
         elif choice == '2':
-            student_id = int(input("Enter Student ID: "))
-            print_student_card(student_id)            
+            name = input("Enter Teacher Name: ")
+            speciality = input("Enter Teacher Speciality: ")
+            add_teacher(name, speciality)
+            made_change = True
+
         elif choice == '3':
+            student_id = int(input("Enter Student ID: "))
+            field = input("Field to update (name or enrolled_in): ")
+            value = input("Enter new value: ")
+            if field == "enrolled_in":
+                value = [c.strip() for c in value.split(",")]
+            update_student(student_id, **{field: value})
+            made_change = True
+
+        elif choice == '4':
             teacher_id = int(input("Enter Teacher ID: "))
             field = input("Field to update (name or speciality): ")
             value = input("Enter new value: ")
-            update_teacher(teacher_id, **{field: value})            
-            # Example: update_teacher(1, speciality="Advanced Piano")
+            update_teacher(teacher_id, **{field: value})
             made_change = True
-        elif choice == '4':
+
+        elif choice == '5':
             student_id = int(input("Enter Student ID to remove: "))
-            remove_student(student_id)            
+            remove_student(student_id)
             made_change = True
+
+        elif choice == '6':
+            teacher_id = int(input("Enter Teacher ID to remove: "))
+            remove_teacher(teacher_id)
+            made_change = True
+
+        elif choice == '7':
+            student_id = int(input("Enter Student ID: "))
+            course_id = input("Enter Course ID: ")
+            check_in(student_id, course_id)
+            made_change = True
+
+        elif choice == '8':
+            student_id = int(input("Enter Student ID: "))
+            print_student_card(student_id)
+
         elif choice.lower() == 'q':
             print("Saving final changes and exiting.")
             break
+
         else:
             print("Invalid choice.")
             

@@ -1,0 +1,70 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Tom",
+            "enrolled_in": [
+                "Guitar"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "james",
+            "enrolled_in": []
+        },
+        {
+            "id": 3,
+            "name": "james",
+            "enrolled_in": [
+                "guitar"
+            ]
+        }
+    ],
+    "teachers": [
+        {
+            "id": 1,
+            "name": "Lisa",
+            "speciality": "Piano",
+            "tom": "guitar"
+        }
+    ],
+    "attendance": [
+        {
+            "student_id": 1,
+            "course_id": "Guitar101",
+            "timestamp": "2025-08-07T16:38:32.224287"
+        },
+        {
+            "student_id": 1,
+            "course_id": "1",
+            "timestamp": "2025-08-07T17:02:13.134658"
+        },
+        {
+            "student_id": 1,
+            "course_id": "2",
+            "timestamp": "2025-08-07T17:03:35.088296"
+        },
+        {
+            "student_id": 2,
+            "course_id": "1",
+            "timestamp": "2025-08-15T13:46:15.254290"
+        },
+        {
+            "student_id": 1,
+            "course_id": "guitar",
+            "timestamp": "2025-08-15T14:19:50.105437"
+        },
+        {
+            "student_id": 1,
+            "course_id": "1",
+            "timestamp": "2025-08-15T14:19:58.520467"
+        },
+        {
+            "student_id": 1,
+            "course_id": "1",
+            "timestamp": "2025-08-15T14:20:17.291515"
+        }
+    ],
+    "next_student_id": 4,
+    "next_teacher_id": 2
+}
